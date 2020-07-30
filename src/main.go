@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"video-manager/db"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
@@ -19,6 +20,9 @@ func buildRouter() *mux.Router {
 
 func main() {
 	fmt.Println("Starting Video Manager server...")
+
+	db.GetDatabaseConnection()
+
 	router := buildRouter()
 	log.Fatal(http.ListenAndServe(":3000", router))
 }
