@@ -13,7 +13,7 @@ import (
 func buildRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Home!")
+		fmt.Fprintf(w, "Home")
 	})
 	return router
 }
