@@ -19,7 +19,9 @@ type config struct {
 		User     string
 		Password string
 		DB       string
-	}
+		Host     string
+		Port     uint16
+	} `yaml:"database"`
 }
 
 func init() {
@@ -28,16 +30,15 @@ func init() {
 		fmt.Println("A config file must be specified when starting the application.")
 		os.Exit(1)
 	}
-	c, err := laodConfigFile(args[0])
+	c, err := loadConfigFile(args[0])
 	if err != nil {
 		fmt.Println("The following error occurred while loading the config file:")
-		fmt.Println(err)
-		os.Exit(1)
+		panic(err)
 	}
 	Config = c
 }
 
-func laodConfigFile(configFile string) (config, error) {
+func loadConfigFile(configFile string) (config, error) {
 	config := config{}
 	if _, err := os.Stat(configFile); os.IsNotExist(err) {
 		return config, errors.New("the config file does not exists")

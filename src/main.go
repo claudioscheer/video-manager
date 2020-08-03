@@ -21,7 +21,9 @@ func buildRouter() *mux.Router {
 func main() {
 	fmt.Println("Starting Video Manager server...")
 
-	db.GetDatabaseConnection()
+	dbConnection := db.GetDatabaseConnection()
+	// Close the database connection before exiting the main function.
+	defer dbConnection.Close()
 
 	router := buildRouter()
 	log.Fatal(http.ListenAndServe(":3000", router))
