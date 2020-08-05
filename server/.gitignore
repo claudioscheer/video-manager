@@ -19,8 +19,7 @@
 # vendor/
 
 ### Go Patch ###
-src/vendor/github.com
-src/vendor/modules.txt
+vendor/
 Godeps
 
 ### Linux ###
@@ -51,5 +50,3 @@ Godeps
 .history
 
 # End of https://www.toptal.com/developers/gitignore/api/go,linux,visualstudiocode
-
-# config.yaml
