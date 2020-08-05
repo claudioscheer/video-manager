@@ -6,10 +6,13 @@ import (
 	"video-manager/utils"
 )
 
-// var databaseConnection
+var databaseConnection *sql.DB = nil
 
 // GetDatabaseConnection returns a connection to the dataset.
 func GetDatabaseConnection() *sql.DB {
+	if databaseConnection != nil {
+		return databaseConnection
+	}
 	db, err := sql.Open(
 		"mysql",
 		fmt.Sprintf(
@@ -24,5 +27,6 @@ func GetDatabaseConnection() *sql.DB {
 	if err != nil {
 		fmt.Println(err.Error())
 	}
-	return db
+	databaseConnection = db
+	return databaseConnection
 }
