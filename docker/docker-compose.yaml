@@ -1,10 +1,18 @@
 version: "3.1"
 
+volumes:
+  db: {}
+
 services:
   db:
     image: mariadb
     environment:
       MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: videomanager
+      MYSQL_USER: videomanager
+      MYSQL_PASSWORD: videomanager
+    volumes:
+      - db:/var/lib/mysql
 
   adminer:
     image: adminer
