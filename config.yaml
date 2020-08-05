@@ -1,0 +1,6 @@
+database:
+  user: videomanager
+  password: videomanager
+  db: video_manager
+  host: 172.19.0.3
+  port: 3306
