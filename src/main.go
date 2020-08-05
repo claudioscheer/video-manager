@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 	"video-manager/db"
+	"video-manager/utils"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
@@ -19,12 +19,11 @@ func buildRouter() *mux.Router {
 }
 
 func main() {
-	fmt.Println("Starting Video Manager server...")
-
-	dbConnection := db.GetDatabaseConnection()
+	dbConnection := db.DatabaseConnection
 	// Close the database connection before exiting the main function.
 	defer dbConnection.Close()
 
 	router := buildRouter()
-	log.Fatal(http.ListenAndServe(":3000", router))
+	fmt.Println(fmt.Sprintf("Video Manager listen on port %d...", utils.Config.Port))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", utils.Config.Port), router))
 }

@@ -15,12 +15,14 @@ var (
 )
 
 type config struct {
+	Port     uint16
 	Database struct {
 		User     string
 		Password string
 		DB       string
 		Host     string
 		Port     uint16
+		Timeout  uint8
 	} `yaml:"database"`
 }
 

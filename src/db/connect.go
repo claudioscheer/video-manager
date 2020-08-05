@@ -4,29 +4,40 @@ import (
 	"database/sql"
 	"fmt"
 	"video-manager/utils"
+
+	// Import mysql driver.
+	_ "github.com/go-sql-driver/mysql"
 )
 
-var databaseConnection *sql.DB = nil
+// DatabaseConnection stores the connection to the database. This works like a singleton class.
+var DatabaseConnection *sql.DB = nil
 
-// GetDatabaseConnection returns a connection to the dataset.
-func GetDatabaseConnection() *sql.DB {
-	if databaseConnection != nil {
-		return databaseConnection
+func init() {
+	dbConnection, err := getDatabaseConnection()
+	if err != nil {
+		panic(err)
 	}
+	if err = dbConnection.Ping(); err != nil {
+		panic(err)
+	}
+	DatabaseConnection = dbConnection
+}
+
+func getDatabaseConnection() (*sql.DB, error) {
 	db, err := sql.Open(
 		"mysql",
 		fmt.Sprintf(
-			"%s:%s@tcp(%s:%d)/%s",
+			"%s:%s@tcp(%s:%d)/%s?timeout=%ds",
 			utils.Config.Database.User,
 			utils.Config.Database.Password,
 			utils.Config.Database.Host,
 			utils.Config.Database.Port,
 			utils.Config.Database.DB,
+			utils.Config.Database.Timeout,
 		),
 	)
 	if err != nil {
-		fmt.Println(err.Error())
+		return nil, err
 	}
-	databaseConnection = db
-	return databaseConnection
+	return db, nil
 }

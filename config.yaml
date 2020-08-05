@@ -1,6 +1,8 @@
+port: 3000
 database:
   user: videomanager
   password: videomanager
-  db: video_manager
-  host: 172.19.0.3
+  db: videomanager
+  host: 172.18.0.2
   port: 3306
+  timeout: 3
