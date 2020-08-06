@@ -1,8 +1,5 @@
 version: "3.1"
 
-volumes:
-  db: {}
-
 services:
   db:
     image: mariadb
@@ -12,7 +9,7 @@ services:
       MYSQL_USER: videomanager
       MYSQL_PASSWORD: videomanager
     volumes:
-      - db:/var/lib/mysql
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init.sql
 
   adminer:
     image: adminer
