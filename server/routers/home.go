@@ -10,6 +10,7 @@ import (
 // HomeRouter handle "/".
 func HomeRouter(router *mux.Router) {
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
 		fmt.Fprintf(w, "Home")
 	})
 }
